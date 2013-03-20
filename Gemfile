@@ -27,8 +27,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 group :test do
 	gem 'rspec-rails'
-	# gem 'shoulda-matchers'
 	gem 'factory_girl_rails'
 	gem 'faker'
 	gem 'capybara'
+	gem 'shoulda-matchers', '1.4.2'
 end
