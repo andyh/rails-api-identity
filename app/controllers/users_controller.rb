@@ -8,9 +8,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
-    @user.save
-    respond_with(@user)
+    respond_with User.create(params[:user])
   end
 
   def authenticate
