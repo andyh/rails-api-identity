@@ -10,6 +10,11 @@ class UsersController < ApplicationController
   def create
     respond_with User.create(user_params)
   end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update_attributes(user_params)
+    respond_with @user
   end
 
   def authenticate

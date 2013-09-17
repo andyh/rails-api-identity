@@ -2,13 +2,13 @@ require 'spec_helper'
 
 UUID_REGEX = /^([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})$/
 describe "Users" do
-  let!(:users) do
-    users_array = []
-    3.times { users_array << FactoryGirl.create(:user)}
-    users_array
-  end
 
   describe "GET 'users.json'" do
+    let!(:users) do
+      users_array = []
+      3.times { users_array << FactoryGirl.create(:user)}
+      users_array
+    end
     it "returns the list of lists" do
       get "/users.json"
       expect(response.body).to eql users.to_json
@@ -26,6 +26,16 @@ describe "Users" do
       it "responds with a 422" do
         post users_url, user: {email: "andy@foxsoft.co.uk"}, format: "json"
         expect(response.status).to eql(422)
+      end
+    end
+  end
+
+  describe "updating a user" do
+    let!(:user) { FactoryGirl.create(:user) }
+    context "trying to set the token directly" do
+      it "is silently rejected" do
+        put user_url(user.id), user: {token: "mytoken"}, format: "json"
+        expect(User.first.token).not_to eq("mytoken")
       end
     end
   end
